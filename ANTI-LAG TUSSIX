@@ -1,0 +1,278 @@
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local Workspace = game:GetService("Workspace")
+
+local player = Players.LocalPlayer
+
+-- Eliminar GUI anterior si existe
+local oldGui = player.PlayerGui:FindFirstChild("AntiLagGUI")
+
+if oldGui then
+	oldGui:Destroy()
+end
+
+-- Crear GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "AntiLagGUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = player.PlayerGui
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 230, 0, 185)
+Frame.Position = UDim2.new(0.02, 0, 0.3, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.Active = true
+Frame.Draggable = true
+Frame.Parent = ScreenGui
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = Frame
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(180, 0, 90)
+UIStroke.Parent = Frame
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Size = UDim2.new(1, 0, 0, 28)
+TextLabel.BackgroundTransparency = 1
+TextLabel.Text = "TUSSIX ANTI-LAG"
+TextLabel.Font = Enum.Font.GothamBlack
+TextLabel.TextSize = 18
+
+TextLabel.TextColor3 = Color3.fromRGB(255, 20, 147)
+
+TextLabel.Parent = Frame
+
+-- Discord
+local DiscordButton = Instance.new("TextButton")
+
+DiscordButton.Size = UDim2.new(1, 0, 0, 16)
+DiscordButton.Position = UDim2.new(0, 0, 0, 26)
+
+DiscordButton.BackgroundTransparency = 1
+
+DiscordButton.Text = "💬 https://discord.gg/NHY3YcuFa"
+DiscordButton.Font = Enum.Font.GothamBold
+
+DiscordButton.TextSize = 12
+DiscordButton.TextColor3 = Color3.fromRGB(255, 182, 193)
+
+DiscordButton.TextStrokeTransparency = 0.5
+DiscordButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+
+DiscordButton.Parent = Frame
+
+DiscordButton.MouseButton1Click:Connect(function()
+
+	if setclipboard then
+		setclipboard("https://discord.gg/TuServidor")
+		DiscordButton.Text = "✅ Copiado al portapapeles!"
+		
+		task.wait(2)
+		
+		DiscordButton.Text = "💬 https://discord.gg/NHY3YcuFa"
+	end
+
+end)
+
+local UIStrokeTitle = Instance.new("UIStroke")
+UIStrokeTitle.Thickness = 2
+UIStrokeTitle.Color = Color3.fromRGB(90, 0, 45)
+UIStrokeTitle.Parent = TextLabel
+
+local UIGradientTitle = Instance.new("UIGradient")
+UIGradientTitle.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 105, 180)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(180, 0, 90))
+})
+UIGradientTitle.Parent = TextLabel
+
+-- BOTÓN ANTI LAG
+local TextButton = Instance.new("TextButton")
+TextButton.Size = UDim2.new(0.9, 0, 0, 34)
+TextButton.Position = UDim2.new(0.05, 0, 0.30, 0)
+TextButton.Text = "ANTI LAG: OFF"
+TextButton.Font = Enum.Font.GothamBold
+TextButton.TextSize = 14
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 20, 147)
+TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.Parent = Frame
+
+local UICorner1 = Instance.new("UICorner")
+UICorner1.CornerRadius = UDim.new(0, 8)
+UICorner1.Parent = TextButton
+
+-- BOTÓN ULTRA
+local TextButton2 = Instance.new("TextButton")
+TextButton2.Size = UDim2.new(0.9, 0, 0, 34)
+TextButton2.Position = UDim2.new(0.05, 0, 0.52, 0)
+TextButton2.Text = "ULTRA MODE: OFF"
+TextButton2.Font = Enum.Font.GothamBold
+TextButton2.TextSize = 13
+TextButton2.BackgroundColor3 = Color3.fromRGB(255, 20, 147)
+TextButton2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton2.Parent = Frame
+
+local UICorner3 = Instance.new("UICorner")
+UICorner3.CornerRadius = UDim.new(0, 8)
+UICorner3.Parent = TextButton2
+
+--BOTON SUPER ULTRA MODE
+local TextButton3 = Instance.new("TextButton")
+TextButton3.Size = UDim2.new(0.9, 0, 0, 30)
+TextButton3.Position = UDim2.new(0.05, 0, 0.74, 0) -- abajo del ULTRA
+TextButton3.Text = "SUPER ULTRA MODE: OFF"
+TextButton3.Font = Enum.Font.GothamBold
+TextButton3.TextSize = 13
+TextButton3.BackgroundColor3 = Color3.fromRGB(255, 20, 147) -- rosado
+TextButton3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton3.Parent = Frame
+
+local UICorner4 = Instance.new("UICorner")
+UICorner4.CornerRadius = UDim.new(0, 8)
+UICorner4.Parent = TextButton3
+
+--VERSION DEL SCRIPT 
+local VersionLabel = Instance.new("TextLabel")
+
+VersionLabel.Size = UDim2.new(1, 0, 0, 18)
+VersionLabel.Position = UDim2.new(0, 0, 1, -20)
+
+VersionLabel.BackgroundTransparency = 1
+
+VersionLabel.Text = "Version v1.0"
+VersionLabel.Font = Enum.Font.Gotham
+
+VersionLabel.TextSize = 12
+VersionLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+VersionLabel.TextTransparency = 0.4 -- un poco transparente
+
+VersionLabel.Parent = Frame
+
+-- FUNCIÓN ANTI LAG
+TextButton.MouseButton1Click:Connect(function()
+
+	TextButton.Text = "ANTI LAG: ON"
+
+	Lighting.GlobalShadows = false
+	Lighting.FogEnd = 999999
+	Lighting.Brightness = 1
+	Lighting.EnvironmentDiffuseScale = 0
+	Lighting.EnvironmentSpecularScale = 0
+
+	for _, obj in Workspace:GetDescendants() do
+
+		if obj:IsA("ParticleEmitter")
+		or obj:IsA("Trail")
+		or obj:IsA("Smoke")
+		or obj:IsA("Fire") then
+
+			obj.Enabled = false
+
+		end
+
+	end
+
+end)
+
+-- FUNCIÓN ULTRA MODE
+TextButton2.MouseButton1Click:Connect(function()
+
+	TextButton2.Text = "ULTRA MODE: ON"
+
+	Lighting.GlobalShadows = false
+	Lighting.FogEnd = 999999
+
+	-- Quitar efectos visuales
+	for _, obj in Workspace:GetDescendants() do
+
+		if obj:IsA("BasePart") then
+			obj.Material = Enum.Material.Plastic
+			obj.Reflectance = 0
+		end
+
+	end
+
+--FUNCION SUPER ULTRA MODE
+TextButton3.MouseButton1Click:Connect(function()
+
+	TextButton3.Text = "SUPER ULTRA MODE: ON"
+
+	local Lighting = game:GetService("Lighting")
+   local Workspace = game:GetService("Workspace")
+
+-- Función ligera
+local function removeAnimationsFromHumanoid(humanoid)
+
+	if humanoid then
+
+		-- Detener animaciones
+		for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
+			track:Stop()
+		end
+
+		-- Quitar animator
+		local animator = humanoid:FindFirstChildOfClass("Animator")
+
+		if animator then
+			animator:Destroy()
+		end
+
+	end
+
+end
+
+-- 🔹 Aplicar solo una vez a los existentes
+for _, obj in ipairs(Workspace:GetDescendants()) do
+
+	if obj:IsA("Humanoid") then
+		removeAnimationsFromHumanoid(obj)
+	end
+
+end
+
+-- 🔹 Detectar nuevos humanoids (optimizado)
+Workspace.DescendantAdded:Connect(function(obj)
+
+	if obj:IsA("Humanoid") then
+
+		task.delay(0.1, function()
+			removeAnimationsFromHumanoid(obj)
+		end)
+
+	end
+
+end)
+
+	print("🚀 SUPER ULTRA MODE ACTIVADO")
+
+end)
+	-- ✂️ QUITAR PELO A TODOS
+	for _, plr in game.Players:GetPlayers() do
+
+		local char = plr.Character
+
+		if char then
+
+			for _, acc in pairs(char:GetChildren()) do
+
+				if acc:IsA("Accessory") then
+
+					-- Detectar si es pelo
+					if acc.AccessoryType == Enum.AccessoryType.Hair then
+						acc:Destroy()
+					end
+
+				end
+
+			end
+
+		end
+
+	end
+
+end)
+
+print("✅ ANTI LAG GUI LOADED")
